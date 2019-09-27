@@ -22,6 +22,21 @@ public class StringUtil {
         return sb.toString();
     }
 
+    public static String jsonJoin(String[] array) {
+        int arraySize = array.length;
+        int bufSize = arraySize * (array[0].length() + 3);
+        StringBuilder buf = new StringBuilder(bufSize);
+        for (int i = 0; i < arraySize; ++i) {
+            if (i > 0) {
+                buf.append(',');
+            }
+            buf.append('"');
+            buf.append(array[i]);
+            buf.append('"');
+        }
+        return buf.toString();
+    }
+
     public static void main(String[] args) {
         String str = "aaa{} bbb{} ccc{}";
         System.out.println(StringUtil.format(str, "1", "2", "3"));
