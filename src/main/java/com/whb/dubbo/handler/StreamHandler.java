@@ -9,10 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-/**
- * @author Joey
- * @date 2018/6/29 20:20
- */
 @Slf4j
 public class StreamHandler implements Runnable {
 
@@ -51,7 +47,7 @@ public class StreamHandler implements Runnable {
         try {
 
             // auto expire
-            String key = StringUtil.format(Constant.DOE_DOWNLOAD_JAR_MESSAGE, requestId);
+            String key = StringUtil.format(Constant.DUBBO_DOWNLOAD_JAR_MESSAGE, requestId);
             redisResolver.rPush(key, "");
             redisResolver.expire(key, 15 * 60);
 
@@ -90,7 +86,7 @@ public class StreamHandler implements Runnable {
 
         log.info("{}|{}", requestId, message);
 
-        String key = StringUtil.format(Constant.DOE_DOWNLOAD_JAR_MESSAGE, requestId);
+        String key = StringUtil.format(Constant.DUBBO_DOWNLOAD_JAR_MESSAGE, requestId);
 
         redisResolver.rPush(key, message);
 

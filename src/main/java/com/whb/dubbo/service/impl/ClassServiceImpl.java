@@ -7,7 +7,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.whb.dubbo.cache.MethodCaches;
 import com.whb.dubbo.cache.UrlCaches;
 import com.whb.dubbo.context.Constant;
-import com.whb.dubbo.context.DoeClassLoader;
+import com.whb.dubbo.context.DubboClassLoader;
 import com.whb.dubbo.dto.ConnectDTO;
 import com.whb.dubbo.dto.MethodModelDTO;
 import com.whb.dubbo.dto.ResultDTO;
@@ -26,17 +26,13 @@ import javax.validation.constraints.NotNull;
 import java.lang.reflect.*;
 import java.util.*;
 
-/**
- * @author Joey
- * @date 2018/6/28 11:32
- */
 @Service("classService")
 @Slf4j
 public class ClassServiceImpl implements ClassService {
 
 
     @Override
-    @Cacheable(value = Constant.DOE_CACHE_PREFIX, key = "#dto.serviceName")
+    @Cacheable(value = Constant.DUBBO_CACHE_PREFIX, key = "#dto.serviceName")
     public List<MethodModelDTO> listMethods(ConnectDTO dto) {
 
         log.info("begin to invoke listMethods({})", JSON.toJSONString(dto));
@@ -62,7 +58,7 @@ public class ClassServiceImpl implements ClassService {
             // show only public method
             // Class<?> clazz = Class.forName(interfaceName);
             // load classes without affect system class since v1.2.0
-            Class<?> clazz = DoeClassLoader.getClass(interfaceName);
+            Class<?> clazz = DubboClassLoader.getClass(interfaceName);
             Method[] methods = clazz.getMethods();
             // convert and cache method object associate witch the unique key
             return MethodCaches.cache(interfaceName, methods);
@@ -172,7 +168,7 @@ public class ClassServiceImpl implements ClassService {
 
             field.setAccessible(true);
             boolean isStatic = Modifier.isStatic(field.getModifiers());
-            if(isStatic) {
+            if (isStatic) {
                 continue;
             }
             try {

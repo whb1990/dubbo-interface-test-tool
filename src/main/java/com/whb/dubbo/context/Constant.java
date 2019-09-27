@@ -8,7 +8,7 @@ public class Constant {
     /**
      * 下载任务的Key
      */
-    public static final String DOE_DOWNLOAD_JAR_TASK = "doe:download:jar:task";
+    public static final String DUBBO_DOWNLOAD_JAR_TASK = "dubbo:download:jar:task";
     /**
      * 任务状态--运行中
      */
@@ -20,18 +20,18 @@ public class Constant {
     /**
      * 下载任务实时消息Key
      */
-    public static final String DOE_DOWNLOAD_JAR_MESSAGE = "doe:download:jar:msg:{}";
+    public static final String DUBBO_DOWNLOAD_JAR_MESSAGE = "dubbo:download:jar:msg:{}";
 
     /**
      * 缓存前缀
      */
-    public static final String DOE_CACHE_PREFIX = "doe:cache";
+    public static final String DUBBO_CACHE_PREFIX = "dubbo:cache";
     /**
      * 实例Key
      */
-    public static final String DOE_CASE_KEY = "doe:case";
+    public static final String DUBBO_CASE_KEY = "dubbo:case";
     /**
      * zk注册地址Key
      */
-    public static final String DOE_REGISTRY_KEY = "doe:registry:list";
+    public static final String DUBBO_REGISTRY_KEY = "dubbo:registry:list";
 }

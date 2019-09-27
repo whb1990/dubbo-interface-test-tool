@@ -23,13 +23,13 @@ spring:
           # 连接超时时间
           timeout: 10000
 
-# ====================doe====================
-doe:
+# ====================dubbo====================
+dubbo:
   dependency:
     # 用于下载依赖的pom文件
-    pom: /app/doe/pom.xml
+    pom: /app/dubbo/pom.xml
     # 用于存放下载的jar的目录
-    lib: /app/doe/lib/
+    lib: /app/dubbo/lib/
     # 用于执行mvn命令超时时间（秒）
     timeout: 20
   watchdog:

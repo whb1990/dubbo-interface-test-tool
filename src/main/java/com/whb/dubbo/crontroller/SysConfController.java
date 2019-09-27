@@ -17,10 +17,10 @@ import java.net.MalformedURLException;
  */
 @Slf4j
 @RestController
-@RequestMapping("/doe/sys")
+@RequestMapping("/dubbo/sys")
 public class SysConfController {
 
-    @Value("${doe.watchdog.url}")
+    @Value("${dubbo.watchdog.url}")
     private String url;
 
     @Resource
@@ -28,26 +28,17 @@ public class SysConfController {
 
     @RequestMapping("/doReload")
     public ResultDTO<String> doReload(HttpServletResponse response) {
-
         log.info("SysConfController.doReload");
-
         try {
-
             return pomService.loadJars("");
-
         } catch (NoSuchMethodException | MalformedURLException e) {
-
             return ResultDTO.handleException(null, null, e);
         }
-
     }
 
     @RequestMapping("/doRepublish")
     public ResultDTO<String> doRepublish(HttpServletResponse response) {
-
         log.info("SysConfController.doRepublish");
-
         return pomService.deleteJars("");
-
     }
 }

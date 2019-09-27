@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Doe</title>
+    <title>Dubbo</title>
     <!-- 导入头部 ,统一引用那些静态资源  -->
     <link rel="stylesheet" th:href="@{~/v3/assets/css/chosen.css}" />
     <script th:replace="/pages/tpl/head::header"></script>
@@ -46,7 +46,7 @@
                             <h5 class="header smaller lighter green">重新加载jar包.</h5>
                             <p>
 
-                                <a id="btnReload" href="/doe/sys/doReload" class="btn btn-app btn-warning" >
+                                <a id="btnReload" href="/dubbo/sys/doReload" class="btn btn-app btn-warning" >
                                     <i class="icon-undo"></i>
                                     重新加载
                                 </a>
@@ -58,7 +58,7 @@
                             <h5 class="header smaller lighter green">清空所有jar包.</h5>
                             <p>
 
-                                <a id="btnClear" href="/doe/sys/doRepublish" class="btn btn-app btn-success">
+                                <a id="btnClear" href="/dubbo/sys/doRepublish" class="btn btn-app btn-success">
                                     <i class="icon-refresh"></i>
                                     清空JAR
                                 </a>
@@ -104,7 +104,7 @@
         $("#btnReload").click(function(e){
 
             var params = {};
-            Nora.Ajax("/doe/sys/doReload", params, function (data) {
+            Nora.Ajax("/dubbo/sys/doReload", params, function (data) {
 
                 if (data.success && null != data.data && data.data.length > 0) {
 
@@ -125,7 +125,7 @@
         $("#btnClear").click(function(e){
 
             var params = {};
-            Nora.Ajax("/doe/sys/doRepublish", params, function (data) {
+            Nora.Ajax("/dubbo/sys/doRepublish", params, function (data) {
 
                 if (data.success && null != data.data && data.data.length > 0) {
 

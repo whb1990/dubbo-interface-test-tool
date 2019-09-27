@@ -65,7 +65,7 @@ public class RedisConfiguration extends CachingConfigurerSupport {
 
         // 对每个缓存空间应用不同的配置
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
-        redisCacheConfigurationMap.put(Constant.DOE_CACHE_PREFIX, config);
+        redisCacheConfigurationMap.put(Constant.DUBBO_CACHE_PREFIX, config);
 
         // 初始化一个RedisCacheWriter
         RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(connectionFactory);

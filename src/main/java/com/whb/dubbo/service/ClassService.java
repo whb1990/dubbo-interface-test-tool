@@ -7,10 +7,6 @@ import com.whb.dubbo.dto.ResultDTO;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-/**
- * @author Joey
- * @date 2018/6/28 11:28
- */
 public interface ClassService {
 
     /**

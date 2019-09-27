@@ -5,13 +5,12 @@ import com.whb.dubbo.model.CaseModel;
 import java.util.List;
 
 /**
- * @author Joey
- * @date 2018/6/29 15:36
+ * 用例管理接口定义
  */
 public interface CaseDAO {
 
     /**
-     * save the case.
+     * 保存
      *
      * @param model
      * @return
@@ -19,7 +18,7 @@ public interface CaseDAO {
     int save(CaseModel model);
 
     /**
-     * list all model.
+     * 列表
      *
      * @return
      */

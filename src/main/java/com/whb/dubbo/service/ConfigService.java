@@ -5,10 +5,6 @@ import com.whb.dubbo.model.RegistryModel;
 
 import java.util.List;
 
-/**
- * @author Joey
- * @date 2018/7/9 19:40
- */
 public interface ConfigService {
 
     /**

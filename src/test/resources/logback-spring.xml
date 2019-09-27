@@ -2,7 +2,7 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 
 
-    <property name="APP_NAME" value="doe" />
+    <property name="APP_NAME" value="dubbo" />
     <property name="LOG_PATH" value="/app/applogs/${APP_NAME}" />
 
 

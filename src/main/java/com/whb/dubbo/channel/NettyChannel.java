@@ -19,10 +19,12 @@ import java.util.concurrent.ConcurrentMap;
  */
 @Slf4j
 public class NettyChannel extends AbstractChannel {
-
+    /**
+     * 用户缓存可用通道
+     */
     private static final ConcurrentMap<Channel, NettyChannel> channelMap = new ConcurrentHashMap<>();
 
-    private final org.jboss.netty.channel.Channel channel;
+    private final Channel channel;
 
     private final Map<String, Object> attributes = new ConcurrentHashMap<>();
 
@@ -34,7 +36,15 @@ public class NettyChannel extends AbstractChannel {
         this.channel = channel;
     }
 
-    public static NettyChannel getOrAddChannel(org.jboss.netty.channel.Channel ch, URL url, ChannelHandler handler) {
+    /**
+     * 获取或打开通道
+     *
+     * @param ch
+     * @param url
+     * @param handler
+     * @return
+     */
+    public static NettyChannel getOrAddChannel(Channel ch, URL url, ChannelHandler handler) {
         if (ch == null) {
             return null;
         }
@@ -51,27 +61,54 @@ public class NettyChannel extends AbstractChannel {
         return ret;
     }
 
-    public static void removeChannelIfDisconnected(org.jboss.netty.channel.Channel ch) {
+    /**
+     * 从缓存移除不可用的通道
+     *
+     * @param ch
+     */
+    public static void removeChannelIfDisconnected(Channel ch) {
         if (ch != null && !ch.isConnected()) {
             channelMap.remove(ch);
         }
     }
 
+    /**
+     * 获取channel绑定的本地地址
+     *
+     * @return
+     */
     @Override
     public InetSocketAddress getLocalAddress() {
         return (InetSocketAddress) channel.getLocalAddress();
     }
 
+    /**
+     * 获取连接channel的远程地址
+     *
+     * @return
+     */
     @Override
     public InetSocketAddress getRemoteAddress() {
         return (InetSocketAddress) channel.getRemoteAddress();
     }
 
+    /**
+     * 通道是否可连接
+     *
+     * @return
+     */
     @Override
     public boolean isConnected() {
         return channel.isConnected();
     }
 
+    /**
+     * 发送数据
+     *
+     * @param message
+     * @param sent
+     * @throws RemotingException
+     */
     @Override
     public void send(Object message, boolean sent) throws RemotingException {
         super.send(message, sent);
@@ -98,6 +135,9 @@ public class NettyChannel extends AbstractChannel {
         }
     }
 
+    /**
+     * 关闭通道
+     */
     @Override
     public void close() {
         try {
@@ -181,7 +221,6 @@ public class NettyChannel extends AbstractChannel {
 
     @Override
     public String toString() {
-        return "com.whb.dubbo.test.NettyChannel [channel=" + channel + "]";
+        return "com.whb.dubbo.channel.NettyChannel [channel=" + channel + "]";
     }
-
 }

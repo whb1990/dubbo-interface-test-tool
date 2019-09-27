@@ -14,7 +14,7 @@ import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.remoting.exchange.Request;
 import com.alibaba.dubbo.rpc.RpcInvocation;
 import com.alibaba.dubbo.rpc.RpcResult;
-import com.whb.dubbo.client.DoeClient;
+import com.whb.dubbo.client.DubboClient;
 import com.whb.dubbo.context.ResponseDispatcher;
 import com.whb.dubbo.dto.ConnectDTO;
 import com.whb.dubbo.handler.CuratorHandler;
@@ -52,7 +52,7 @@ public class TestDemo {
 
         URL url = urls.get(0).getUrl();
         url = url.addParameter(Constants.CODEC_KEY, protocol); // 非常重要，必须要设置编码器协议类型
-        DoeClient client = new DoeClient(url);
+        DubboClient client = new DubboClient(url);
         client.doConnect();
 
         HashMap<String, String> map = ParamUtil.getAttachmentFromUrl(url);

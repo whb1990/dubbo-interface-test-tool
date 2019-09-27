@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Doe</title>
+    <title>Dubbo</title>
     <!-- 导入头部 ,统一引用那些静态资源  -->
     <link rel="stylesheet" th:href="@{~/v3/assets/css/chosen.css}" />
     <style>
@@ -324,7 +324,7 @@
         }
 
         var params = {"providerKey": providerKey, "json": json, "methodKey": methodKey, "version": version, "group": group};
-        Nora.Ajax("/doe/dubbo/doSend", params, function (data) {
+        Nora.Ajax("/dubbo/dubbo/doSend", params, function (data) {
 
             if (data.success && null != data.data && data.data.length > 0) {
 
@@ -351,7 +351,7 @@
             var methodKey = $(this).val();
 
             var params = { "methodKey": methodKey};
-            Nora.Ajax("/doe/dubbo/doListParams", params, function (data) {
+            Nora.Ajax("/dubbo/dubbo/doListParams", params, function (data) {
 
                 if (data.success && null != data.data && data.data.length > 0) {
 
@@ -379,7 +379,7 @@
 
 
         var params = {"providerKey": providerKey, "serviceName": interfaceName};
-        Nora.Ajax("/doe/dubbo/doListMethods", params, function (data) {
+        Nora.Ajax("/dubbo/dubbo/doListMethods", params, function (data) {
 
             if (data.success && null != data.data && data.data.length > 0) {
 
@@ -416,7 +416,7 @@
 
         var params = {"conn": conn, "serviceName": serviceName, "version": version, "group": group};
         var cboProvider = $("#cboProviders");
-        Nora.Ajax("/doe/dubbo/doListProviders", params, function (data) {
+        Nora.Ajax("/dubbo/dubbo/doListProviders", params, function (data) {
 
             if (data.success && null != data.data && data.data.length > 0) {
 
@@ -464,7 +464,7 @@
             doReset();
             doListProviders(serviceName);
         });
-        Nora.Ajax("/doe/dubbo/doConnect", params, function (data) {
+        Nora.Ajax("/dubbo/dubbo/doConnect", params, function (data) {
 
             if (data.success && null != data.data && data.data.length > 0) {
 
@@ -530,7 +530,7 @@
         }
 
         var params = {"providerKey": providerKey, "json": json, "methodKey": methodKey, "caseName": caseName};
-        Nora.Ajax("/doe/case/doSave", params, function (data) {
+        Nora.Ajax("/dubbo/case/doSave", params, function (data) {
 
             if (data.success && null != data.data && data.data.length > 0) {
 
@@ -552,7 +552,7 @@
 
         var txtConnect = $("#txtConnect");
         var params = {};
-        Nora.Ajax("/doe/zk/doListRegistry", params, function (data) {
+        Nora.Ajax("/dubbo/zk/doListRegistry", params, function (data) {
 
             if (data.success && null != data.data && data.data.length > 0) {
 

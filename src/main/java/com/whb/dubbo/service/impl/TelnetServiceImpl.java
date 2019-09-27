@@ -18,10 +18,6 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-/**
- * @author Joey
- * @date 2018/7/17 19:43
- */
 @Slf4j
 @Service("telnetService")
 public class TelnetServiceImpl implements TelnetService {
@@ -39,11 +35,16 @@ public class TelnetServiceImpl implements TelnetService {
 
         TelnetClient telnetClient = null;
         try {
-            telnetClient = new TelnetClient("VT220");  // 指明Telnet终端类型，否则会返回来的数据中文会乱码
-            telnetClient.setDefaultTimeout(dto.getTimeout() <= 0 ? 5000 : dto.getTimeout()); // socket延迟时间：5000ms
-            telnetClient.connect(model.getIp(), model.getPort());  // 建立一个连接,默认端口是23
-            InputStream in = telnetClient.getInputStream(); // 读取命令的流
-            PrintStream out = new PrintStream(telnetClient.getOutputStream());  // 写命令的流
+            // 指明Telnet终端类型，否则会返回来的数据中文会乱码
+            telnetClient = new TelnetClient("VT220");
+            // socket延迟时间：5000ms
+            telnetClient.setDefaultTimeout(dto.getTimeout() <= 0 ? 5000 : dto.getTimeout());
+            // 建立一个连接,默认端口是23
+            telnetClient.connect(model.getIp(), model.getPort());
+            // 读取命令的流
+            InputStream in = telnetClient.getInputStream();
+            // 写命令的流
+            PrintStream out = new PrintStream(telnetClient.getOutputStream());
 
             String command = makeCommand(dto.getServiceName(), dto.getMethodName(), dto.getJson());
             log.info("send: {}", command);
@@ -70,9 +71,10 @@ public class TelnetServiceImpl implements TelnetService {
                     break;
                 }
             }
-
-            out.println("exit"); // 写命令
-            out.flush(); // 将命令发送到telnet Server
+            // 写命令
+            out.println("exit");
+            // 将命令发送到telnet Server
+            out.flush();
             telnetClient.disconnect();
 
             String ret = sb.toString();

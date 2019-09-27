@@ -21,17 +21,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Joey
- * @date 2018/6/15 10:21
- */
 public class CuratorHandler {
-
+    /**
+     * 协议
+     */
     private final String protocol;
+    /**
+     * 主机
+     */
     private final String host;
+    /**
+     * 端口
+     */
     private final int port;
+    /**
+     * zk客户端
+     */
     private ZookeeperClient zkClient;
+    /**
+     * zk注册中心
+     */
     private ZookeeperRegistry registry;
+    /**
+     * 根节点
+     */
     private String root = "/dubbo";
 
     public CuratorHandler(String protocol, String host, int port) {

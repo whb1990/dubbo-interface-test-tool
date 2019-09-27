@@ -22,8 +22,7 @@ import java.util.jar.JarFile;
  * 自定义类加载器，做沙箱隔离.
  */
 @Slf4j
-public class DoeClassLoader extends ClassLoader {
-
+public class DubboClassLoader extends ClassLoader {
 
     private final String path;
 
@@ -33,7 +32,7 @@ public class DoeClassLoader extends ClassLoader {
     /**
      * 不使用双亲委派机制
      */
-    public DoeClassLoader(String path) {
+    public DubboClassLoader(String path) {
         super(null);
         this.path = path;
     }
@@ -45,7 +44,6 @@ public class DoeClassLoader extends ClassLoader {
      * @throws Exception
      */
     private void scanJarFile(File file) throws Exception {
-
         JarFile jar = new JarFile(file);
 
         Enumeration<JarEntry> en = jar.entries();
@@ -114,7 +112,6 @@ public class DoeClassLoader extends ClassLoader {
 
     @Override
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-
         name = makeClassName(name);
 
         byte[] stream = get(name);
@@ -132,7 +129,7 @@ public class DoeClassLoader extends ClassLoader {
      * 从自定义类加载中加载类
      */
     public static Class<?> getClass(String name) throws ClassNotFoundException {
-        return new DoeClassLoader("").loadClass(name, false);
+        return new DubboClassLoader("").loadClass(name, false);
     }
 
     private static byte[] get(String className) {

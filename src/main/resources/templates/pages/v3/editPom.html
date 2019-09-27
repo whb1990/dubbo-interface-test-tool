@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Doe</title>
+    <title>Dubbo</title>
     <!-- 导入头部 ,统一引用那些静态资源  -->
     <link rel="stylesheet" th:href="@{~/v3/assets/css/dropzone.css}" />
     <script th:replace="/pages/tpl/head::header"></script>
@@ -115,7 +115,7 @@
 
         var param = {"requestId": requestId};
 
-        Nora.Ajax("/doe/pom/doMsg", param, function (data) {
+        Nora.Ajax("/dubbo/pom/doMsg", param, function (data) {
             if (data.success) {
                 // on success
                 $("#txtParams").scrollTop(500000);
@@ -158,7 +158,7 @@
 
         var param = {};
 
-        Nora.Ajax("/doe/pom/doReparse", param, function (data) {
+        Nora.Ajax("/dubbo/pom/doReparse", param, function (data) {
             if (data.success) {
                 // on success
                 var msg = data.msg;
@@ -193,7 +193,7 @@
     function doReload() {
 
         var param = {};
-        Nora.Ajax("/doe/pom/doLoad", param, function (data) {
+        Nora.Ajax("/dubbo/pom/doLoad", param, function (data) {
 
             bootbox.alert(data.msg);
 
@@ -210,7 +210,7 @@
 
         var params = {"content": content};
 
-        Nora.Ajax("/doe/pom/doOverridePomFile", params, function (data) {
+        Nora.Ajax("/dubbo/pom/doOverridePomFile", params, function (data) {
 
             if (data.success && data.data) {
 
@@ -232,7 +232,7 @@
     function doLoad() {
 
         var params = {};
-        Nora.Ajax("/doe/pom/doLoadPomFile", params, function (data) {
+        Nora.Ajax("/dubbo/pom/doLoadPomFile", params, function (data) {
 
             if (data.success && null != data.data && data.data.length > 0) {
 

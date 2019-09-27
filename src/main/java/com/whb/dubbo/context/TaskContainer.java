@@ -21,7 +21,9 @@ public class TaskContainer {
      * 线程池最大容量
      */
     public static final int MAXIMUM_POOL_SIZE = CPU_COUNT;
-    // 线程池核心容量
+    /**
+     * 线程池核心容量
+     */
     private static final int CORE_POOL_SIZE = CPU_COUNT;
     /**
      * 线程池
@@ -62,6 +64,9 @@ public class TaskContainer {
         poolExecutor.execute(task);
     }
 
+    /**
+     * 静态内部类实现的单例
+     */
     static class TaskContainerHolder {
         static final TaskContainer instance = new TaskContainer();
     }

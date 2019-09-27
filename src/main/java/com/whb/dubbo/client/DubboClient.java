@@ -12,26 +12,35 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * 客户端
+ * 通道客户端
  */
-public class DoeClient extends TransportClient {
+public class DubboClient extends TransportClient {
 
-    public DoeClient(URL url) {
+    public DubboClient(URL url) {
         super(url, new SendReceiveHandler());
     }
 
+    /**
+     * 连接
+     */
     public void doConnect() {
         ChannelFuture future = bootstrap.connect(getConnectAddress());
         boolean ret = future.awaitUninterruptibly(timeout, TimeUnit.MILLISECONDS);
         if (ret && future.isSuccess()) {
             Channel newChannel = future.getChannel();
             newChannel.setInterestOps(Channel.OP_READ_WRITE);
-            DoeClient.this.channel = future.getChannel();
+            DubboClient.this.channel = future.getChannel();
         } else {
-            throw new RuntimeException("can't not connect to server.");
+            throw new RuntimeException("can not connect to server.");
         }
     }
 
+    /**
+     * 发送请求
+     *
+     * @param req
+     * @throws RemotingException
+     */
     public void send(Request req) throws RemotingException {
 
         NettyChannel ch = NettyChannel.getOrAddChannel(this.channel, url, handler);

@@ -9,25 +9,25 @@
  */
 package com.whb.dubbo.test;
 
-import com.whb.dubbo.context.DoeClassLoader;
+import com.whb.dubbo.context.DubboClassLoader;
 import org.junit.Test;
 
 /**
  * @author Joey
  * @date 2019/6/28 14:54
  */
-public class TestDoeClassLoader {
+public class TestDubboClassLoader {
 
     @Test
     public void testLoad() throws Exception {
 
-        String path = "F:\\app\\doe\\lib";
+        String path = "F:\\app\\dubbo\\lib";
 
-        DoeClassLoader doeClassLoader = new DoeClassLoader(path);
+        DubboClassLoader dubboClassLoader = new DubboClassLoader(path);
 
-        doeClassLoader.loadJars();
-        doeClassLoader.loadClassFile();
-        Class<?> clazz = doeClassLoader.loadClass("com.fcbox.edms.terminal.api.CabinetServiceFacade");
+        dubboClassLoader.loadJars();
+        dubboClassLoader.loadClassFile();
+        Class<?> clazz = dubboClassLoader.loadClass("com.fcbox.edms.terminal.api.CabinetServiceFacade");
 
 
         System.out.println(clazz.getClassLoader());

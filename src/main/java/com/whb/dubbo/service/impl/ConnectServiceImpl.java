@@ -10,7 +10,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.whb.dubbo.cache.CuratorCaches;
 import com.whb.dubbo.cache.MethodCaches;
 import com.whb.dubbo.cache.UrlCaches;
-import com.whb.dubbo.client.DoeClient;
+import com.whb.dubbo.client.DubboClient;
 import com.whb.dubbo.context.ResponseDispatcher;
 import com.whb.dubbo.dto.ConnectDTO;
 import com.whb.dubbo.dto.ResultDTO;
@@ -33,10 +33,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author Joey
- * @date 2018/6/18 17:10
- */
 @Service("connectService")
 @Slf4j
 public class ConnectServiceImpl implements ConnectService {
@@ -53,9 +49,9 @@ public class ConnectServiceImpl implements ConnectService {
         // parse parameter
         Object[] params = ParamUtil.parseJson(dto.getJson(), methodModel.getMethod());
 
-
-        url = url.addParameter(Constants.CODEC_KEY, "dubbo"); // 非常重要，必须要设置编码器协议类型
-        DoeClient client = new DoeClient(url);
+        // 非常重要，必须要设置编码器协议类型
+        url = url.addParameter(Constants.CODEC_KEY, "dubbo");
+        DubboClient client = new DubboClient(url);
         client.doConnect();
 
         // set the path variables
@@ -69,7 +65,8 @@ public class ConnectServiceImpl implements ConnectService {
 
         client.send(req);
 
-        int timeout = (0 == dto.getTimeout()) ? 10 : dto.getTimeout(); // send timeout
+        // send timeout
+        int timeout = (0 == dto.getTimeout()) ? 10 : dto.getTimeout();
         CompletableFuture<RpcResult> future = ResponseDispatcher.getDispatcher().getFuture(req);
         RpcResult result = future.get(timeout, TimeUnit.SECONDS);
         ResponseDispatcher.getDispatcher().removeFuture(req);

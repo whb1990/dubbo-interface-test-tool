@@ -8,10 +8,6 @@ import com.whb.dubbo.model.ServiceModel;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-/**
- * @author Joey
- * @date 2018/6/18 17:10
- */
 public interface ConnectService {
 
     /**

@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.whb.dubbo.cache.RedisResolver;
 import com.whb.dubbo.client.ProcessClient;
 import com.whb.dubbo.context.Constant;
-import com.whb.dubbo.context.DoeClassLoader;
+import com.whb.dubbo.context.DubboClassLoader;
 import com.whb.dubbo.context.TaskContainer;
 import com.whb.dubbo.dto.PomDTO;
 import com.whb.dubbo.dto.ResultDTO;
@@ -36,7 +36,9 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -47,22 +49,16 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
-/**
- * dependency service.
- *
- * @author Joey
- * @date 2018/6/17 9:42
- */
 @Service("pomService")
 @Slf4j
 public class PomServiceImpl implements PomService {
 
     private Lock locker = new ReentrantLock();
 
-    @Value("${doe.dependency.pom}")
+    @Value("${dubbo.dependency.pom}")
     private String pomXml;
 
-    @Value("${doe.dependency.lib}")
+    @Value("${dubbo.dependency.lib}")
     private String libPath = null;
 
     @Autowired
@@ -253,11 +249,11 @@ public class PomServiceImpl implements PomService {
     @Override
     public ResultDTO<String> getRealTimeMsg(@NotNull String requestId) {
 
-        String key = StringUtil.format(Constant.DOE_DOWNLOAD_JAR_MESSAGE, requestId);
+        String key = StringUtil.format(Constant.DUBBO_DOWNLOAD_JAR_MESSAGE, requestId);
 
         ResultDTO<String> ret = ResultDTO.createSuccessResult("SUCCESS", String.class);
 
-        boolean isRunning = redisResolver.hasKey(Constant.DOE_DOWNLOAD_JAR_TASK);
+        boolean isRunning = redisResolver.hasKey(Constant.DUBBO_DOWNLOAD_JAR_TASK);
 
         if (!isRunning) {
 
@@ -291,7 +287,7 @@ public class PomServiceImpl implements PomService {
     public ResultDTO<String> loadJars(String path) {
 
         String realPath = (StringUtils.isEmpty(path)) ? this.libPath : path;
-        DoeClassLoader classLoader = new DoeClassLoader(realPath);
+        DubboClassLoader classLoader = new DubboClassLoader(realPath);
         try {
             classLoader.clearCache();
             classLoader.loadJars();
@@ -455,6 +451,4 @@ public class PomServiceImpl implements PomService {
         }
         return ResultDTO.handleSuccess("delete sucess!", path);
     }
-
-
 }

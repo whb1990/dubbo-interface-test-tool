@@ -20,10 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * @author Joey
- * @date 2018/11/26 16:21
- */
 @Service("menuService")
 @Slf4j
 public class MenuServiceImpl implements MenuService {
@@ -91,12 +87,11 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
-
     private String getProjectRealPath() throws FileNotFoundException {
 
-        // useless when you run doe in the jar way, so comment these code.
+        // useless when you run dubbo in the jar way, so comment these code.
 //        String path = ResourceUtils.getURL("classpath:").getPath();
-        String path = "/app/doe/";
+        String path = "/app/dubbo/";
         path = path + STATIC_MENU_PATH;
         return path;
     }
@@ -162,7 +157,8 @@ public class MenuServiceImpl implements MenuService {
     private String toHtml(String elementId, MenuNode root) {
 
         StringBuilder sb = new StringBuilder();
-        boolean useCache = true; // 判断是否使用缓存
+        // 判断是否使用缓存
+        boolean useCache = true;
 
         for (MenuNode item : root.getChildren()) {
 

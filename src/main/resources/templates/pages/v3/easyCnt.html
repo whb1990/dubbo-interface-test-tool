@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Doe</title>
+    <title>Dubbo</title>
     <!-- 导入头部 ,统一引用那些静态资源  -->
     <link rel="stylesheet" th:href="@{~/v3/assets/css/chosen.css}" />
     <script th:replace="/pages/tpl/head::header"></script>
@@ -248,7 +248,7 @@
             return;
         }
         var params = {"conn": conn, "json": json, "serviceName": serviceName, "methodName": methodName};
-        Nora.Ajax("/doe/dubbo/doSendWithTelnet", params, function (data) {
+        Nora.Ajax("/dubbo/dubbo/doSendWithTelnet", params, function (data) {
 
             if (data.success && null != data.data && data.data.length > 0) {
 

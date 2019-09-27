@@ -20,10 +20,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * @author Joey
- * @date 2018/6/29 15:20
- */
 @Service("caseService")
 public class CaseServiceImpl implements CaseService {
 
@@ -33,7 +29,7 @@ public class CaseServiceImpl implements CaseService {
     private static final AtomicLong counter = new AtomicLong();
 
     /**
-     * save the case.
+     * 保存用例
      *
      * @param model
      * @return
@@ -49,36 +45,32 @@ public class CaseServiceImpl implements CaseService {
         }
 
         model.setAddress(UrlCaches.get(model.getProviderKey()).getUrl().getAddress());
-        model.setInterfaceName(UrlCaches.get(model.getProviderKey()).getUrl().getParameter(Constants.INTERFACE_KEY ));
+        model.setInterfaceName(UrlCaches.get(model.getProviderKey()).getUrl().getParameter(Constants.INTERFACE_KEY));
         model.setMethodText(MethodCaches.get(model.getMethodKey()).getMethodText());
         model.setCaseId(counter.getAndAdd(1));
         model.setInsertTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
-        redisResolver.rPush(Constant.DOE_CASE_KEY, model);
+        redisResolver.rPush(Constant.DUBBO_CASE_KEY, model);
 
-        // TODO
-        // save to db.
+        // TODO 保存到db
 
         return ResultDTO.createSuccessResult("SUCCESS", model, CaseModel.class);
     }
 
     /**
-     * list all case.
+     * 获取用例列表
      *
      * @return
      */
     @Override
     public List<Object> listAll() {
 
-        List<Object> list = redisResolver.lGet(Constant.DOE_CASE_KEY, 0, -1);
+        List<Object> list = redisResolver.lGet(Constant.DUBBO_CASE_KEY, 0, -1);
 
         if (CollectionUtils.isEmpty(list)) {
-
-            // TODO
-            // get from db and put them to cache.
+            // TODO 从db中获取并缓存
 
         }
-
         return list;
     }
 }

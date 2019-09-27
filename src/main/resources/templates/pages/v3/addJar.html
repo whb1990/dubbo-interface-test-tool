@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Doe</title>
+    <title>Dubbo</title>
     <!-- 导入头部 ,统一引用那些静态资源  -->
     <link rel="stylesheet" th:href="@{~/v3/assets/css/dropzone.css}" />
     <script th:replace="/pages/tpl/head::header"></script>
@@ -22,7 +22,7 @@
 
     <div class="main-container-inner">
 
-        <!-- useless when you run doe in the jar way, so comment these code. -->
+        <!-- useless when you run dubbo-tool in the jar way, so comment these code. -->
         <!--<div th:replace="/pages/v3/menu::lefter"></div>-->
         <div th:utext="${menuHtml}"></div>
 
@@ -160,7 +160,7 @@
                                                 </div>
                                                 <div class="step-pane" id="step4">
                                                     <div class="hide">
-                                                        <form id="applyForm" action="/doe/home/index">
+                                                        <form id="applyForm" action="/dubbo/home/index">
 
                                                         </form>
                                                     </div>
@@ -222,7 +222,7 @@
     function doReload() {
 
         var param = {};
-        Nora.Ajax("/doe/pom/doLoad", param, function (data) {
+        Nora.Ajax("/dubbo/pom/doLoad", param, function (data) {
 
             bootbox.alert(data.msg);
 
@@ -235,7 +235,7 @@
 
         var param = {"requestId": requestId};
 
-        Nora.Ajax("/doe/pom/doMsg", param, function (data) {
+        Nora.Ajax("/dubbo/pom/doMsg", param, function (data) {
             if (data.success) {
                 // on success
                 if (data.code == 1) {
@@ -298,7 +298,7 @@
         pom = $("<span/>").text(pom).html(); // 转码一下
         var param = {"pom": pom};
 
-        Nora.Ajax("/doe/pom/doParse", param, function (data) {
+        Nora.Ajax("/dubbo/pom/doParse", param, function (data) {
             if (data.success) {
                 // on success
                 var msg = data.msg;
@@ -326,7 +326,7 @@
 
         }).on('finished', function(e) {
 
-            window.location.href = "/doe/home/listJar";
+            window.location.href = "/dubbo/home/listJar";
 
         }).on('stepclick', function(e, info){
 

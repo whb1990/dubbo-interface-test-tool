@@ -88,7 +88,7 @@ public class ProcessClient extends Thread {
      */
     private void putFlag() {
         log.info("set the key to mark as the running flag and the longest lifetime of task was one hour");
-        redisResolver.set(Constant.DOE_DOWNLOAD_JAR_TASK, Constant.RUNNING_FlAG, 1, TimeUnit.HOURS);
+        redisResolver.set(Constant.DUBBO_DOWNLOAD_JAR_TASK, Constant.RUNNING_FlAG, 1, TimeUnit.HOURS);
     }
 
     /**
@@ -96,7 +96,7 @@ public class ProcessClient extends Thread {
      */
     private void removeFlag() {
         log.info("remove the running flag.");
-        redisResolver.del(Constant.DOE_DOWNLOAD_JAR_TASK);
+        redisResolver.del(Constant.DUBBO_DOWNLOAD_JAR_TASK);
     }
 
     /**
@@ -158,7 +158,7 @@ public class ProcessClient extends Thread {
      * @return
      */
     public boolean isRunning() {
-        if (redisResolver.hasKey(Constant.DOE_DOWNLOAD_JAR_TASK)) {
+        if (redisResolver.hasKey(Constant.DUBBO_DOWNLOAD_JAR_TASK)) {
             log.warn("jar包下载任务正在执行中，请稍后重试.");
             return true;
         }

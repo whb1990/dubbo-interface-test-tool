@@ -10,7 +10,9 @@ public class BaseDTO {
      * 用于生成请求ID
      */
     private static final AtomicLong counter = new AtomicLong();
-
+    /**
+     * 请求ID
+     */
     private final String requestId;
 
     public BaseDTO() {

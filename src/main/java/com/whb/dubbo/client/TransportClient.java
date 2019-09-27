@@ -24,11 +24,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Joey
- * @date 2018/6/15 11:26
+ * 传输客户端
  */
 public class TransportClient {
-
+    /**
+     * 初始化NioClientSocketChannelFactory，这一步将启动nioWorker线程，并初始化NioClientSocketPipelineSink，并将Boss线程创建
+     */
     protected static final ChannelFactory channelFactory = new NioClientSocketChannelFactory(
             new ThreadPoolExecutor(0, Integer.MAX_VALUE,
                     60L, TimeUnit.SECONDS,
@@ -42,7 +43,13 @@ public class TransportClient {
 
     protected ClientBootstrap bootstrap = new ClientBootstrap(channelFactory);
 
+    /**
+     * 缓冲大小
+     */
     protected int bufferSize = Constants.DEFAULT_BUFFER_SIZE;
+    /**
+     * 超时时长
+     */
     protected int timeout = Constants.DEFAULT_TIMEOUT;
     protected final Codec2 codec;
     protected final URL url;

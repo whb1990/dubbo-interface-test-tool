@@ -13,11 +13,10 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * @author Joey
- * @date 2018/7/9 19:39
+ * 注册中心管理控制器
  */
 @RestController
-@RequestMapping("/doe/zk")
+@RequestMapping("/dubbo/zk")
 @Slf4j
 public class RegistryController {
 
@@ -26,83 +25,53 @@ public class RegistryController {
 
     @RequestMapping("/doListZk")
     public String doListZk() {
-
         log.info("RegistryController.doListZk()");
-
         String result;
-
         try {
-
             List<RegistryModel> models = configService.listRegistry();
             result = JSON.toJSONString(models);
-
         } catch (Exception e) {
-
             result = "[]";
         }
-
         return result;
     }
 
 
     @RequestMapping("/doListRegistry")
     public ResultDTO<Object> doListRegistry() {
-
         log.info("RegistryController.doListRegistry()");
-
         ResultDTO<Object> resultDTO = new ResultDTO<>();
-
         try {
-
             List<RegistryModel> models = configService.listRegistry();
             resultDTO.setData(models);
             resultDTO.setSuccess(true);
-
         } catch (Exception e) {
-
             resultDTO = ResultDTO.createExceptionResult("occur an error when list registry address : ", e, Object.class);
         }
-
         return resultDTO;
     }
 
     @RequestMapping("/addRegistry")
     public ResultDTO<RegistryModel> addRegistry(@NotNull RegistryModel dto) {
-
         log.info("RegistryController.addRegistry({})", JSON.toJSONString(dto));
-
         ResultDTO<RegistryModel> resultDTO;
-
         try {
-
             resultDTO = configService.addRegistry(dto);
-
         } catch (Exception e) {
-
             resultDTO = ResultDTO.createExceptionResult(e, RegistryModel.class);
         }
-
         return resultDTO;
     }
 
     @RequestMapping("/delRegistry")
     public ResultDTO<RegistryModel> delRegistry(@NotNull RegistryModel dto) {
-
         log.info("RegistryController.delRegistry({})", JSON.toJSONString(dto));
-
         ResultDTO<RegistryModel> resultDTO;
-
         try {
-
             resultDTO = configService.delRegistry(dto);
-
         } catch (Exception e) {
-
             resultDTO = ResultDTO.createExceptionResult(e, RegistryModel.class);
         }
-
         return resultDTO;
     }
-
-
 }
