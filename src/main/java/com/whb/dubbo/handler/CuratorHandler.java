@@ -53,19 +53,26 @@ public class CuratorHandler {
         this.port = port;
     }
 
+    /**
+     * 连接zk
+     *
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     public void doConnect() throws NoSuchFieldException, IllegalAccessException {
-
         CuratorZookeeperTransporter zookeeperTransporter = new CuratorZookeeperTransporter();
         URL url = new URL(protocol, host, port);
-
         registry = new ZookeeperRegistry(url, zookeeperTransporter);
-
         Field field = registry.getClass().getDeclaredField("zkClient");
         field.setAccessible(true);
         zkClient = (ZookeeperClient) field.get(registry);
-
     }
 
+    /**
+     * 获取接口集合
+     *
+     * @return
+     */
     public List<ServiceModel> getInterfaces() {
         List<ServiceModel> ret = new ArrayList<>();
         List<String> list = zkClient.getChildren(root);
@@ -74,48 +81,60 @@ public class CuratorHandler {
             model.setServiceName(list.get(i));
             ret.add(model);
         }
-
         return ret;
     }
 
+    /**
+     * 获取提供者集合
+     *
+     * @param dto
+     * @return
+     */
     public List<UrlModel> getProviders(ConnectDTO dto) {
-
         if (null == dto) {
             throw new RRException("dto can't be null.");
         }
         if (StringUtils.isEmpty(dto.getServiceName())) {
             throw new RRException("service name can't be null.");
         }
-
         Map<String, String> map = new HashMap<>();
         map.put(Constants.INTERFACE_KEY, dto.getServiceName());
-
         if (StringUtils.isNotEmpty(dto.getVersion())) {
             map.put(Constants.VERSION_KEY, dto.getVersion());
         }
         if (StringUtils.isNotEmpty(dto.getGroup())) {
             map.put(Constants.GROUP_KEY, dto.getGroup());
         }
-
         URL url = new URL(protocol, host, port, map);
         List<URL> list = registry.lookup(url);
-
         return UrlCaches.cache(dto.getServiceName(), list);
     }
 
+    /**
+     * 获取方法集合
+     *
+     * @param interfaceName
+     * @return
+     * @throws ClassNotFoundException
+     */
     public List<MethodModelDTO> getMethods(String interfaceName) throws ClassNotFoundException {
-
         Class<?> clazz = Class.forName(interfaceName);
         Method[] methods = clazz.getMethods();
-
         return MethodCaches.cache(interfaceName, methods);
-
     }
 
+    /**
+     * 销毁注册中心
+     */
     public void close() {
         registry.destroy();
     }
 
+    /**
+     * 注册中心是否可用
+     *
+     * @return
+     */
     public boolean isAvailable() {
         return registry.isAvailable();
     }

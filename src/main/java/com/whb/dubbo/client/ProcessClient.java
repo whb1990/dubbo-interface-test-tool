@@ -80,7 +80,6 @@ public class ProcessClient extends Thread {
 
         // 执行完毕
         this.done = true;
-
     }
 
     /**
@@ -148,6 +147,11 @@ public class ProcessClient extends Thread {
         }
     }
 
+    /**
+     * 是否完成
+     *
+     * @return
+     */
     public boolean isDone() {
         return done;
     }

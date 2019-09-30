@@ -45,16 +45,13 @@ public class DubboClassLoader extends ClassLoader {
      */
     private void scanJarFile(File file) throws Exception {
         JarFile jar = new JarFile(file);
-
         Enumeration<JarEntry> en = jar.entries();
         while (en.hasMoreElements()) {
             JarEntry je = en.nextElement();
             je.getName();
             String name = je.getName();
             if (name.endsWith(".class")) {
-
                 String className = makeClassName(name);
-
                 try (InputStream input = jar.getInputStream(je); ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                     int bufferSize = 1024;
                     byte[] buffer = new byte[bufferSize];
@@ -80,7 +77,6 @@ public class DubboClassLoader extends ClassLoader {
      * 从指定路径加载Jar包
      */
     public void loadJars() throws Exception {
-
         if (StringUtils.isEmpty(path)) {
             throw new RRException(StringUtil.format("can't found the path {}", path));
         }
@@ -110,19 +106,22 @@ public class DubboClassLoader extends ClassLoader {
         return false;
     }
 
+    /**
+     * 加载class
+     *
+     * @param name
+     * @param resolve
+     * @return
+     * @throws ClassNotFoundException
+     */
     @Override
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
         name = makeClassName(name);
-
         byte[] stream = get(name);
-
         if (null != stream) {
-
             return defineClass(name, stream, 0, stream.length);
         }
-
         return super.loadClass(name, resolve);
-
     }
 
     /**

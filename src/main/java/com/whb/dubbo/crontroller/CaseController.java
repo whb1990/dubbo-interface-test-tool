@@ -27,6 +27,12 @@ public class CaseController {
     private CaseService caseService;
 
 
+    /**
+     * 保存用例
+     *
+     * @param dto
+     * @return
+     */
     @RequestMapping("/doSave")
     public ResultDTO<CaseModel> doSave(@NotNull CaseModelDTO dto) {
         log.info("CaseController.doSave({})", JSON.toJSONString(dto));
@@ -41,9 +47,14 @@ public class CaseController {
         return resultDTO;
     }
 
+    /**
+     * 获取用例列表
+     *
+     * @param dto
+     * @return
+     */
     @RequestMapping("/doList")
     public String doList(CaseModelDTO dto) {
-
         log.info("CaseController.doList({})", JSON.toJSONString(dto));
         try {
             List<Object> list = caseService.listAll();
@@ -52,7 +63,6 @@ public class CaseController {
                 BeanUtils.copyProperties(l, model);
                 return model;
             }).collect(Collectors.toList());
-
             return JSON.toJSONString(ret);
         } catch (Exception e) {
             return "[]";

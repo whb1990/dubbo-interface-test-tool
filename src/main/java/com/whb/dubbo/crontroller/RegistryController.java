@@ -23,6 +23,11 @@ public class RegistryController {
     @Autowired
     private ConfigService configService;
 
+    /**
+     * 获取zk列表
+     *
+     * @return
+     */
     @RequestMapping("/doListZk")
     public String doListZk() {
         log.info("RegistryController.doListZk()");
@@ -36,7 +41,11 @@ public class RegistryController {
         return result;
     }
 
-
+    /**
+     * 获取注册中心地址列表
+     *
+     * @return
+     */
     @RequestMapping("/doListRegistry")
     public ResultDTO<Object> doListRegistry() {
         log.info("RegistryController.doListRegistry()");
@@ -51,6 +60,12 @@ public class RegistryController {
         return resultDTO;
     }
 
+    /**
+     * 新增注册中心
+     *
+     * @param dto
+     * @return
+     */
     @RequestMapping("/addRegistry")
     public ResultDTO<RegistryModel> addRegistry(@NotNull RegistryModel dto) {
         log.info("RegistryController.addRegistry({})", JSON.toJSONString(dto));
@@ -63,6 +78,12 @@ public class RegistryController {
         return resultDTO;
     }
 
+    /**
+     * 删除注册中心
+     *
+     * @param dto
+     * @return
+     */
     @RequestMapping("/delRegistry")
     public ResultDTO<RegistryModel> delRegistry(@NotNull RegistryModel dto) {
         log.info("RegistryController.delRegistry({})", JSON.toJSONString(dto));

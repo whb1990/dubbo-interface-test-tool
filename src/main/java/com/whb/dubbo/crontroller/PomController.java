@@ -23,7 +23,7 @@ public class PomController {
     private PomService pomService;
 
     /**
-     * load jars.
+     * 加载Jar文件
      *
      * @return
      */
@@ -37,11 +37,10 @@ public class PomController {
             resultDTO = ResultDTO.createExceptionResult(e, String.class);
         }
         return resultDTO;
-
     }
 
     /**
-     * parse the upload content to pom model and fork another process to invoke cmd/shell command to download the jars at background.
+     * 解析pom，将依赖追加到pom文件并加载Jar
      *
      * @param pom
      * @return
@@ -67,7 +66,7 @@ public class PomController {
     }
 
     /**
-     * invoke the mvn command to download the jars again.
+     * 重新解析pom并重新加载Jar
      *
      * @return
      */
@@ -83,6 +82,12 @@ public class PomController {
         return resultDTO;
     }
 
+    /**
+     * 获取执行信息
+     *
+     * @param requestId
+     * @return
+     */
     @RequestMapping("/doMsg")
     public ResultDTO<String> getRealTimeMsg(String requestId) {
         log.info("PomController.getRealTimeMsg({})", requestId);
@@ -99,6 +104,12 @@ public class PomController {
         return resultDTO;
     }
 
+    /**
+     * 获取Jar列表
+     *
+     * @param dto
+     * @return
+     */
     @RequestMapping("/doListJars")
     public String doListJars(PomDTO dto) {
         log.info("PomController.doListJars({})", JSON.toJSONString(dto));
@@ -112,6 +123,11 @@ public class PomController {
         return result;
     }
 
+    /**
+     * 加载Pom文件
+     *
+     * @return
+     */
     @RequestMapping("/doLoadPomFile")
     public ResultDTO<String> doLoadPomFile() {
         log.info("PomController.doLoadPomFile");
@@ -125,6 +141,12 @@ public class PomController {
         return resultDTO;
     }
 
+    /**
+     * 保存Pom(覆盖旧Pom文件)
+     *
+     * @param content
+     * @return
+     */
     @RequestMapping("/doOverridePomFile")
     public ResultDTO<Boolean> doOverridePomFile(String content) {
         log.info("PomController.doOverridePomFile");

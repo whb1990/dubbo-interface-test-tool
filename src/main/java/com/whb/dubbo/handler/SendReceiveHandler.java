@@ -27,35 +27,38 @@ public class SendReceiveHandler implements ChannelHandler {
         log.info("SendReceiveHandler.disconnected");
     }
 
+    /**
+     * 发送消息
+     *
+     * @param channel
+     * @param message
+     * @throws RemotingException
+     */
     @Override
     public void sent(Channel channel, Object message) throws RemotingException {
-
         log.info("SendReceiveHandler.sent");
-
         if (message instanceof Request) {
-
             Request req = (Request) message;
             ResponseDispatcher.getDispatcher().register(req);
-
         }
     }
 
+    /**
+     * 接收响应消息
+     *
+     * @param channel
+     * @param message
+     */
     @Override
     public void received(Channel channel, Object message) {
-
         log.info("SendReceiveHandler.received({})", JSON.toJSONString(message));
-
         if (message instanceof Response) {
-
             Response res = (Response) message;
-
             if (res.getStatus() == Response.OK) {
                 try {
-
                     if (res.getResult() instanceof RpcResult) {
                         ResponseDispatcher.getDispatcher().dispatch(res);
                     }
-
                 } catch (Exception e) {
                     log.error("callback invoke error .result:" + res.getResult() + ",url:" + channel.getUrl(), e);
                 }
@@ -75,9 +78,15 @@ public class SendReceiveHandler implements ChannelHandler {
         }
     }
 
+    /**
+     * 捕获异常
+     *
+     * @param channel
+     * @param exception
+     * @throws RemotingException
+     */
     @Override
     public void caught(Channel channel, Throwable exception) throws RemotingException {
         log.error("SendReceiveHandler.caught", exception);
     }
-
 }

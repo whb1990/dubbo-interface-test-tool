@@ -26,6 +26,12 @@ public class SysConfController {
     @Resource
     private PomService pomService;
 
+    /**
+     * 重新加载Jar
+     *
+     * @param response
+     * @return
+     */
     @RequestMapping("/doReload")
     public ResultDTO<String> doReload(HttpServletResponse response) {
         log.info("SysConfController.doReload");
@@ -36,6 +42,12 @@ public class SysConfController {
         }
     }
 
+    /**
+     * 清空Jar
+     *
+     * @param response
+     * @return
+     */
     @RequestMapping("/doRepublish")
     public ResultDTO<String> doRepublish(HttpServletResponse response) {
         log.info("SysConfController.doRepublish");

@@ -33,6 +33,12 @@ public class DubboController {
     @Autowired
     private TelnetService telnetService;
 
+    /**
+     * 极简模式的发送
+     *
+     * @param dto
+     * @return
+     */
     @RequestMapping("/doSendWithTelnet")
     public ResultDTO<String> doSendWithTelnet(@NotNull ConnectDTO dto) {
         log.info("DubboController.doSendWithTelnet({})", JSON.toJSONString(dto));
@@ -45,6 +51,12 @@ public class DubboController {
         return resultDTO;
     }
 
+    /**
+     * 普通模式的发送
+     *
+     * @param dto
+     * @return
+     */
     @RequestMapping("/doSend")
     public ResultDTO<String> doSend(@NotNull ConnectDTO dto) {
         log.info("DubboController.doSend({})", JSON.toJSONString(dto));
@@ -57,6 +69,12 @@ public class DubboController {
         return resultDTO;
     }
 
+    /**
+     * 普通模式--获取参数列表
+     *
+     * @param dto
+     * @return
+     */
     @RequestMapping("/doListParams")
     public ResultDTO<String> doListParams(@NotNull MethodModelDTO dto) {
         log.info("DubboController.doListParams({})", JSON.toJSONString(dto));
@@ -69,6 +87,12 @@ public class DubboController {
         return resultDTO;
     }
 
+    /**
+     * 普通模式--获取方法列表
+     *
+     * @param dto
+     * @return
+     */
     @RequestMapping("/doListMethods")
     public ResultDTO<Object> doListMethods(@NotNull ConnectDTO dto) {
         log.info("DubboController.doListMethods({})", dto.getProviderKey());
@@ -78,7 +102,6 @@ public class DubboController {
             if (CollectionUtils.isEmpty(models)) {
                 resultDTO = ResultDTO.createErrorResult(StringUtil.format("no methods for {}.",
                         dto.getServiceName()), Object.class);
-
             } else {
                 log.info("methods: {}", JSON.toJSONString(models));
                 resultDTO.setData(models);
@@ -91,6 +114,12 @@ public class DubboController {
         return resultDTO;
     }
 
+    /**
+     * 普通模式--获取提供者列表
+     *
+     * @param dto
+     * @return
+     */
     @RequestMapping("/doListProviders")
     public ResultDTO<Object> doListProviders(@NotNull ConnectDTO dto) {
         log.info("DubboController.doListProviders({} {} {})", dto.getServiceName(), dto.getVersion(), dto.getGroup());
@@ -112,6 +141,12 @@ public class DubboController {
         return resultDTO;
     }
 
+    /**
+     * 普通模式--连接到zk
+     *
+     * @param conn
+     * @return
+     */
     @RequestMapping("/doConnect")
     public ResultDTO<Object> doConnect(@NotNull String conn) {
         log.debug("DubboController.doConnect({})", conn);
