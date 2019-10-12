@@ -1,4 +1,4 @@
-package com.whb.dubbo.cache;
+package com.whb.dubbo.configuration;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
